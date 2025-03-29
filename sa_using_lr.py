@@ -105,9 +105,3 @@ def predict_sentiment(review):
     return "Positive" if prediction[0] == 1 else "Negative"
 
 print(predict_sentiment("This movie was soo bad!"))
-
-print(predict_sentiment("This movie was amazing!"))
-
-print(predict_sentiment("great movie man"))
-
-print(predict_sentiment("Saw a good movie really!!! made my day"))
