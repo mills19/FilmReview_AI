@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #a9a3a9;
+            text-align: center;
+            padding: 100px;
+        }
+        .container {
+            background: rgb(185, 196, 214);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(223, 216, 216, 0.1);
+            width: 50%;
+            margin: auto;
+        }
+        h1 {
+            color: #333;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-weight: 400;
+            color: #151515;
+            
+        }
+        textarea {
+            width: 80%;
+            height: 100px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid #010000;
+            font-size: 20px;
+        }
+        button {
+            background-color: #f08c20;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #fd9926;
+        }
+        #result {
+            font-size: 20px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-weight: bold;
+            margin-top: 15px;
+            color: #353434;
+        }
+    </style>
+    <script>
+        function analyzeSentiment() {
+            let review = document.getElementById("review").value;
+            fetch("/predict", {
+                method: "POST",
+                body: new URLSearchParams({review: review}),
+                headers: {"Content-Type": "application/x-www-form-urlencoded"}
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("result").innerText = "Sentiment: " + data.sentiment;
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Movie Review Sentiment Analysis</h1>
+    <textarea id="review" placeholder="Enter your review..." rows="4" cols="50"></textarea><br>
+    <button onclick="analyzeSentiment()">Analyze Sentiment</button>
+    <h2 id="result"></h2>
+</body>
+</html>
